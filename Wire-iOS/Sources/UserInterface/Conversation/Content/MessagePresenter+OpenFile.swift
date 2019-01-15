@@ -18,6 +18,7 @@
 
 import Foundation
 import AVKit
+import WebKit
 
 fileprivate let zmLog = ZMSLog(tag: "MessagePresenter")
 
@@ -132,18 +133,24 @@ extension MessagePresenter {
             tmpPath = fileURL.path
         }
 
-        ///TODO: do it in BG thread?
-        documentInteractionController = UIDocumentInteractionController(url: URL(fileURLWithPath: tmpPath))
-        guard let documentInteractionController = self.documentInteractionController else { return }
-        documentInteractionController.delegate = self
-        if !preview || !documentInteractionController.presentPreview(animated: true) {
-            ///TODO: slow
 
-            documentInteractionController.presentOptionsMenu(from: targetViewController.view.convert(targetView.bounds, from: targetView), in: targetViewController.view, animated: true) ///todo: presentOpenInMenuFromRect
-        } else {
-            ///TODO:
-            zmLog.error("Cannot")
-        }
+
+        let vc = presentInWebView(url: fileURL, folderUrl: fileURL)
+        targetViewController.present(vc, animated: true)
+    }
+
+    ///TODO: done button, open in button
+    func presentInWebView(url: URL, folderUrl: URL) -> UIViewController {
+        let viewController = UIViewController()
+
+        let webView = WKWebView(frame: .zero)
+        webView.translatesAutoresizingMaskIntoConstraints = false
+        viewController.view.addSubview(webView)
+        webView.fitInSuperview()
+
+        webView.loadFileURL(url, allowingReadAccessTo: folderUrl)
+
+        return viewController
     }
 
 }
@@ -154,9 +161,9 @@ extension MessagePresenter: UIDocumentInteractionControllerDelegate {
     }
 
     public func documentInteractionControllerWillBeginPreview(_ controller: UIDocumentInteractionController) {
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(0.1 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: {
+        delay(0.1) {
             UIApplication.shared.wr_updateStatusBarForCurrentControllerAnimated(true)
-        })
+        }
     }
 
     public func documentInteractionControllerDidEndPreview(_ controller: UIDocumentInteractionController) {

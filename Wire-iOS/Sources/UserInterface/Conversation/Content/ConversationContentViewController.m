@@ -388,7 +388,7 @@ const static int ConversationContentViewControllerMessagePrefetchDepth = 10;
             case MessageActionPresent:
             {
                 self.conversationMessageWindowTableViewAdapter.selectedMessage = message;
-                [self presentDetailsForMessage:message];
+                [self presentDetailsForMessage:message];///TODO: check CPU usage?
             }
                 break;
             case MessageActionSave:
@@ -557,7 +557,7 @@ const static int ConversationContentViewControllerMessagePrefetchDepth = 10;
     }
     
     UITableViewCell *cell = [self cellForMessage:message];
-    [self.messagePresenter openMessage:message targetView:cell actionResponder:self];
+    [self.messagePresenter openMessage:message targetView:cell actionResponder:self];///TODO: check CPU usage
 }
 
 - (void)openSketchForMessage:(id<ZMConversationMessage>)message inEditMode:(CanvasViewControllerEditMode)editMode

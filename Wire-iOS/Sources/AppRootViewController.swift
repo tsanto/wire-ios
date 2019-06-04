@@ -95,9 +95,9 @@ final class AppRootViewController: UIViewController {
         // not possible because it has to be below the status bar.
         mainWindow.rootViewController = self
         mainWindow.makeKeyAndVisible()
-        callWindow.makeKeyAndVisible()
-        overlayWindow.makeKeyAndVisible()
-        mainWindow.makeKey()
+//        callWindow.makeKeyAndVisible()
+//        overlayWindow.makeKeyAndVisible()
+//        mainWindow.makeKey()
 
         type(of: self).configureAppearance()
         configureMediaManager()

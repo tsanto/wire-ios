@@ -27,7 +27,11 @@ final class ClientListViewController: UIViewController,
                                 UITableViewDelegate,
                                 UITableViewDataSource,
                                 ZMClientUpdateObserver,
-                                ClientColorVariantProtocol {
+                                ClientColorVariantProtocol,
+                                AlertPresentable {
+
+    weak var alert: UIAlertController?
+
     var clientsTableView: UITableView?
     let topSeparator = OverflowSeparatorView()
     weak var delegate: ClientListViewControllerDelegate?

@@ -19,7 +19,8 @@
 import UIKit
 import Cartography
 
-@objcMembers class ProfileTitleView : UIView {
+@objcMembers
+final class ProfileTitleView : UIView {
     
     let verifiedImageView = UIImageView(image: WireStyleKit.imageOfShieldverified)
     let titleLabel = UILabel()

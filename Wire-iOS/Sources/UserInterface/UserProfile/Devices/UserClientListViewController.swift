@@ -19,11 +19,15 @@
 import Foundation
 
 
-class UserClientListViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+final class UserClientListViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
     fileprivate let headerView: ParticipantDeviceHeaderView
     fileprivate let collectionView = UICollectionView(forGroupedSections: ())
-    fileprivate var clients: [UserClientType]
+    fileprivate var clients: [UserClientType] {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
     fileprivate var tokens: [Any?] = []
     fileprivate var user: ZMUser
     
@@ -149,7 +153,6 @@ extension UserClientListViewController: ZMUserObserver {
         
         headerView.showUnencryptedLabel = user.clients.count == 0
         clients = UserClientListViewController.clientsSortedByRelevance(for: user)
-        collectionView.reloadData()
     }
     
 }

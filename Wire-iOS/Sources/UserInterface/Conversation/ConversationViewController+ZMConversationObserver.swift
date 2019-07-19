@@ -37,14 +37,11 @@ extension ConversationViewController: ZMConversationObserver {
             updateGuestsBarVisibility()
         }
 
-        if note.nameChanged || note.securityLevelChanged || note.connectionStateChanged || note.legalHoldStatusChanged {
+        if note.nameChanged ||
+            note.securityLevelChanged ||
+            note.connectionStateChanged ||
+            note.legalHoldStatusChanged {
             setupNavigatiomItem()
-            ///TODO: legalHoldStatusChanged
-        }
-
-        /// refresh the red dot icon visibility
-        if note.legalHoldStatusChanged {
-            contentViewController.updateTableViewHeaderView()
         }
     }
 }

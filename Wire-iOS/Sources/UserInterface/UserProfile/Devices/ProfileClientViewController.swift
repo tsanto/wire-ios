@@ -21,7 +21,8 @@ import Foundation
 import Cartography
 
 
-@objcMembers class ProfileClientViewController: UIViewController {
+@objcMembers
+final class ProfileClientViewController: UIViewController {
 
     let userClient: UserClient
     let contentView = UIView()

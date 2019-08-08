@@ -186,7 +186,14 @@ extension SettingsCellDescriptorFactory {
         
         if context.canEvaluatePolicy(LAPolicy.deviceOwnerAuthentication, error: &error) {
             let lockApp = SettingsPropertyToggleCellDescriptor(settingsProperty: self.settingsPropertyFactory.property(.lockApp))
-            lockApp.settingsProperty.enabled = !AppLock.rules.forceAppLock
+
+            switch AuthenticationType.current {
+            case .unavailable:
+                lockApp.settingsProperty.enabled = false
+            default:
+                lockApp.settingsProperty.enabled = !AppLock.rules.forceAppLock
+            } ///TODO: refresh when view will appear?
+
             let section = SettingsSectionDescriptor(cellDescriptors: [lockApp], footer: appLockSectionSubtitle)
             cellDescriptors.append(section)
         }

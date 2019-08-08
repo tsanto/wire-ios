@@ -66,7 +66,7 @@ final class SelfProfileViewController: UIViewController {
         // Create the settings hierarchy
         let settingsPropertyFactory = SettingsPropertyFactory(userSession: SessionManager.shared?.activeUserSession, selfUser: ZMUser.selfUser())
 		let settingsCellDescriptorFactory = SettingsCellDescriptorFactory(settingsPropertyFactory: settingsPropertyFactory, userRightInterfaceType: userRightInterfaceType)
-		let rootGroup = settingsCellDescriptorFactory.rootGroup()
+        let rootGroup = settingsCellDescriptorFactory.rootGroup() ///TODO: refresh when view will appear/app became active??
         settingsController = rootGroup.generateViewController()! as! SettingsTableViewController
         profileHeaderViewController = ProfileHeaderViewController(user: selfUser, options: selfUser.isTeamMember ? [.allowEditingAvailability] : [.hideAvailability])
 
@@ -76,6 +76,15 @@ final class SelfProfileViewController: UIViewController {
 
         super.init(nibName: nil, bundle: nil)
         settingsPropertyFactory.delegate = self
+
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(applicationDidBecomeActive),
+                                               name: UIApplication.didBecomeActiveNotification,
+                                               object: .none)
+
+    }
+
+    @objc func applicationDidBecomeActive() {
     }
 
     @available(*, unavailable)

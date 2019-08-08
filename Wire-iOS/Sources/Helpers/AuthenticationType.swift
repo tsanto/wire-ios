@@ -24,7 +24,10 @@ enum AuthenticationType {
     static var current: AuthenticationType {
         let context = LAContext()
         
-        guard context.canEvaluatePolicy(.deviceOwnerAuthentication, error: nil) else { return .unavailable }
+        guard context.canEvaluatePolicy(.deviceOwnerAuthentication, error: nil) else {
+            /// Notice: on simulator default setup, this guard does not work even no passcode is set
+            return .unavailable
+        }
         guard context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) else { return .passcode }
         
         guard #available(iOS 11.0, *) else { return .touchID }

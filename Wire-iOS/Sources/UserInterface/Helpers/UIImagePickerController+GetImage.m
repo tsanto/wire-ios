@@ -35,7 +35,7 @@
     if (nil == assetURL) {
         return nil;
     }
-    PHFetchResult<PHAsset *> *result = [PHAsset fetchAssetsWithALAssetURLs:@[assetURL] options:nil];
+    PHFetchResult<PHAsset *> *result = [PHAsset fetchAssetsWithALAssetURLs:@[assetURL] options:nil];///TODO: use PhotoKit for iOS 12+
     return result.firstObject;
 }
 

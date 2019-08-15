@@ -75,7 +75,7 @@ open class CameraKeyboardViewController: UIViewController {
     
     init(splitLayoutObservable: SplitLayoutObservable,
          assetLibrary: AssetLibrary = AssetLibrary(),
-         imageManager: ImageManagerProtocol = PHImageManager.default(),
+         imageManager: ImageManagerProtocol = PHImageManager.default(),///TODO: lazy or class
          permissions: PhotoPermissionsController = PhotoPermissionsControllerStrategy()) {
         self.splitLayoutObservable = splitLayoutObservable
         self.assetLibrary = assetLibrary

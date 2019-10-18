@@ -35,7 +35,7 @@ protocol ConversationListViewModelStateDelegate: class {
     func reload<C>(
     using stagedChangeset: StagedChangeset<C>,
     interrupt: ((Changeset<C>) -> Bool)?,
-    setData: (C?) -> Void
+    setData: (C) -> Void
     )
 }
 

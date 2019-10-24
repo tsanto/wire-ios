@@ -22,12 +22,12 @@ import LocalAuthentication
 
 private let zmLog = ZMSLog(tag: "UI")
 
-final class AppLock {
+final public class AppLock {
     // Returns true if user enabled the app lock feature.
     
-    static var rules = AppLockRules.fromBundle()
+    public static var rules = AppLockRules.fromBundle()
 
-    static var isActive: Bool {
+    public static var isActive: Bool {
         get {
             guard !rules.forceAppLock else { return true }
             guard let data = ZMKeychain.data(forAccount: SettingsPropertyName.lockApp.rawValue),
@@ -45,9 +45,9 @@ final class AppLock {
     }
     
     // Returns the time since last lock happened.
-    static var lastUnlockedDate: Date = Date(timeIntervalSince1970: 0)
+    public static var lastUnlockedDate: Date = Date(timeIntervalSince1970: 0)
     
-    enum AuthenticationResult {
+    public enum AuthenticationResult {
         /// User sucessfully authenticated
         case granted
         /// User failed to authenticate or cancelled the request
@@ -57,23 +57,41 @@ final class AppLock {
     }
     
     // Creates a new LAContext and evaluates the authentication settings of the user.
-    static func evaluateAuthentication(description: String, with callback: @escaping (AuthenticationResult) -> Void) {
+    public static func evaluateAuthentication(description: String, with callback: @escaping (AuthenticationResult) -> Void) {
     
         let context: LAContext = LAContext()
         var error: NSError?
         let policy = LAPolicy.deviceOwnerAuthenticationWithBiometrics
-//        let policy = LAPolicy.deviceOwnerAuthentication
 
         if context.canEvaluatePolicy(policy, error: &error) {///TODO: press enter passcode -> not popup???
             context.evaluatePolicy(policy, localizedReason: description, reply: { (success, error) -> Void in
-                callback(success ? .granted : .denied)///TODO: shown our passwd dialog
-//                switch (error.) {
-//                default:
-//                    break
-//                }
+                callback(success ? .granted : .denied)
 
                 if let laError = error as? LAError {
-                    print(laError.code)
+                    let needInputPassword: Bool
+                    print("laError.code = \(laError.code == .userFallback)")
+
+                    if #available(iOSApplicationExtension 11.0, *) {
+                        switch laError.code {
+                        case .biometryLockout:
+                            needInputPassword = true
+                        case .userFallback:
+                            needInputPassword = true
+                        default:
+                            needInputPassword = false
+                        }
+                    } else {
+                        switch laError.code {
+                        case .touchIDLockout:
+                            needInputPassword = true
+                        default:
+                            needInputPassword = false
+                        }
+                    }
+
+                    if needInputPassword {
+                        ///TODO:
+                    }
                 }
             })
         } else {
@@ -86,12 +104,12 @@ final class AppLock {
 }
 
 
-struct AppLockRules: Decodable {
+public struct AppLockRules: Decodable {
     
-    let forceAppLock: Bool
-    let appLockTimeout: UInt
+    public let forceAppLock: Bool
+    public let appLockTimeout: UInt
     
-    static func fromBundle() -> AppLockRules {
+    public static func fromBundle() -> AppLockRules {
         if let fileURL = Bundle.main.url(forResource: "session_manager", withExtension: "json"),
             let fileData = try? Data(contentsOf: fileURL) {
             return fromData(fileData)
@@ -100,7 +118,7 @@ struct AppLockRules: Decodable {
         }
     }
     
-    static func fromData(_ data: Data) -> AppLockRules {
+    public static func fromData(_ data: Data) -> AppLockRules {
         let decoder = JSONDecoder()
         return try! decoder.decode(AppLockRules.self, from: data)
     }

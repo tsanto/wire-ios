@@ -61,10 +61,16 @@ final public class AppLock {
     
         let context: LAContext = LAContext()
         var error: NSError?
-    
-        if context.canEvaluatePolicy(LAPolicy.deviceOwnerAuthentication, error: &error) {
-            context.evaluatePolicy(LAPolicy.deviceOwnerAuthentication, localizedReason: description, reply: { (success, error) -> Void in
-                callback(success ? .granted : .denied)
+        let policy = LAPolicy.deviceOwnerAuthenticationWithBiometrics
+//        let policy = LAPolicy.deviceOwnerAuthentication
+
+        if context.canEvaluatePolicy(policy, error: &error) {///TODO: press enter passcode -> not popup???
+            context.evaluatePolicy(policy, localizedReason: description, reply: { (success, error) -> Void in
+                callback(success ? .granted : .denied)///TODO: shown our passwd dialog
+//                switch (error.) {
+//                default:
+//                    break
+//                }
             })
         } else {
             // If there's no passcode set automatically grant access unless app lock is a requirement to run the app

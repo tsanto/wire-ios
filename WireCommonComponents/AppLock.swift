@@ -54,6 +54,8 @@ final public class AppLock {
         case denied
         /// There's no authenticated method available (no passcode is set)
         case unavailable
+
+        case needPassword
     }
     
     // Creates a new LAContext and evaluates the authentication settings of the user.
@@ -63,35 +65,27 @@ final public class AppLock {
         var error: NSError?
         let policy = LAPolicy.deviceOwnerAuthenticationWithBiometrics
 
-        if context.canEvaluatePolicy(policy, error: &error) {///TODO: press enter passcode -> not popup???
+        if context.canEvaluatePolicy(policy, error: &error) {
             context.evaluatePolicy(policy, localizedReason: description, reply: { (success, error) -> Void in
-                callback(success ? .granted : .denied)
 
+                let needInputPassword: Bool
                 if let laError = error as? LAError {
-                    let needInputPassword: Bool
                     print("laError.code = \(laError.code == .userFallback)")
 
-                    if #available(iOSApplicationExtension 11.0, *) {
-                        switch laError.code {
-                        case .biometryLockout:
-                            needInputPassword = true
+                    switch laError.code {
                         case .userFallback:
                             needInputPassword = true
                         default:
                             needInputPassword = false
-                        }
-                    } else {
-                        switch laError.code {
-                        case .touchIDLockout:
-                            needInputPassword = true
-                        default:
-                            needInputPassword = false
-                        }
                     }
+                } else {
+                    needInputPassword = false
+                }
 
-                    if needInputPassword {
-                        ///TODO:
-                    }
+                if needInputPassword {
+                    callback(.needPassword)
+                } else {
+                    callback(success ? .granted : .denied)
                 }
             })
         } else {

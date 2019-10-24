@@ -18,22 +18,23 @@
 
 import UIKit
 
-final class RequestPasswordController {
+public final class RequestPasswordController {
     
-    typealias Callback = (_ password: String?) -> ()
+    public typealias Callback = (_ password: String?) -> ()
     
-    enum RequestPasswordContext {
+    public enum RequestPasswordContext {
         case removeDevice
         case logout
+        case unlock
     }
     
-    var alertController: UIAlertController
+    public var alertController: UIAlertController
     
     private let callback: Callback
     private weak var okAction: UIAlertAction?
     internal weak var passwordTextField: UITextField?
 
-    init(context: RequestPasswordContext, callback: @escaping Callback) {
+    public init(context: RequestPasswordContext, callback: @escaping Callback) {
 
         self.callback = callback
         
@@ -52,6 +53,10 @@ final class RequestPasswordController {
         case .logout:
             title = "self.settings.account_details.log_out.alert.title".localized
             message = "self.settings.account_details.log_out.alert.message".localized
+            placeholder = "self.settings.account_details.log_out.alert.password".localized
+        case .unlock:
+            title = "Unlock".localized
+            message = "Unlock with you password".localized
             placeholder = "self.settings.account_details.log_out.alert.password".localized
         }
 

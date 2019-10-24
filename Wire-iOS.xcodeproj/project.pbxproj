@@ -649,7 +649,6 @@
 		87AAE4251E4347F000E1D13A /* ConversationContentViewController+PeekPop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AAE4241E4347F000E1D13A /* ConversationContentViewController+PeekPop.swift */; };
 		87AAE4291E43682E00E1D13A /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87AAE4281E43682E00E1D13A /* LocalAuthentication.framework */; };
 		87AB6DB61D9AB47400ADAD38 /* SettingsStyleNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AB6DB51D9AB47400ADAD38 /* SettingsStyleNavigationController.swift */; };
-		87AC33CB2181C6FB00069C79 /* ClientRemovalObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AC33CA2181C6FB00069C79 /* ClientRemovalObserver.swift */; };
 		87AC33CD2182064F00069C79 /* ReplyComposingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AC33CC2182064F00069C79 /* ReplyComposingView.swift */; };
 		87AC77DB1DE48C01009F6D56 /* Copyable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AC77DA1DE48C01009F6D56 /* Copyable.swift */; };
 		87AC9F561C0749FB00E1ED6F /* TailEditingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AC9F551C0749FB00E1ED6F /* TailEditingTextField.swift */; };
@@ -1107,7 +1106,6 @@
 		EF27CD9E20C161500077FE55 /* ProfileViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF27CD9B20C161500077FE55 /* ProfileViewControllerTests.swift */; };
 		EF27CD9F20C161500077FE55 /* ProfileClientViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF27CD9C20C161500077FE55 /* ProfileClientViewControllerTests.swift */; };
 		EF27CDA020C161500077FE55 /* ClientListViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF27CD9D20C161500077FE55 /* ClientListViewControllerTests.swift */; };
-		EF282B92228AF9790042D6C5 /* RequestPasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF282B91228AF9790042D6C5 /* RequestPasswordController.swift */; };
 		EF282B94228AFA970042D6C5 /* RequestPasswordViewControllerSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF282B93228AFA970042D6C5 /* RequestPasswordViewControllerSnapshotTests.swift */; };
 		EF285FCF2354693900D67643 /* PassthroughWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871BC1D01D34F8F800DF0793 /* PassthroughWindow.swift */; };
 		EF2971582099AD8700EFE6A4 /* SelfProfileViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2971552099AD3000EFE6A4 /* SelfProfileViewControllerTests.swift */; };
@@ -1318,6 +1316,8 @@
 		EFE806301FE006A7006A0EE7 /* DateFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFE8062E1FE005A7006A0EE7 /* DateFormatterTests.swift */; };
 		EFEB2EE0220C7E5500519EDC /* ProfileSelfPictureViewControllerSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFEB2EDF220C7E5500519EDC /* ProfileSelfPictureViewControllerSnapshotTests.swift */; };
 		EFEC285F233A6FF8007F47FF /* ConversationListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFEC285E233A6FF8007F47FF /* ConversationListHeaderView.swift */; };
+		EFEC7D982361A7F90003CF33 /* RequestPasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF282B91228AF9790042D6C5 /* RequestPasswordController.swift */; };
+		EFEC7D9A2361A91F0003CF33 /* ClientRemovalObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AC33CA2181C6FB00069C79 /* ClientRemovalObserver.swift */; };
 		EFEE97C1232271FF007A4702 /* ConversationViewController+ViewLifeCycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFEE97C0232271FF007A4702 /* ConversationViewController+ViewLifeCycle.swift */; };
 		EFEE97C323227628007A4702 /* ProfilePresenter+Orientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFEE97C223227628007A4702 /* ProfilePresenter+Orientation.swift */; };
 		EFEE97C623229768007A4702 /* ConversationListContentDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFEE97C523229768007A4702 /* ConversationListContentDelegate.swift */; };
@@ -7715,7 +7715,6 @@
 				F15650E621DD14B300210504 /* TransformLabel.swift in Sources */,
 				87F61D1A1CD36F0900670794 /* GradientView.swift in Sources */,
 				EF285FCF2354693900D67643 /* PassthroughWindow.swift in Sources */,
-				87AC33CB2181C6FB00069C79 /* ClientRemovalObserver.swift in Sources */,
 				5E4B1387204FE7DA00ED5DF1 /* SystemAnimationCurves.swift in Sources */,
 				D550F5772044532D009E09DD /* ConversationAction.swift in Sources */,
 				D5F8BFF42007AC84008F8C3D /* UIView+TableViewHeaderFooterSizing.swift in Sources */,
@@ -8033,7 +8032,6 @@
 				8F5A3E9D19AE2C9E00D0E9DA /* AVSMediaManager+Additions.m in Sources */,
 				87DCF49B1D34E9E600BB420F /* LocationSelectionViewController.swift in Sources */,
 				871067431C0DC78F0035603B /* SettingsExternalScreenCellDescriptor.swift in Sources */,
-				EF282B92228AF9790042D6C5 /* RequestPasswordController.swift in Sources */,
 				87DCF4EE1D34EA4500BB420F /* TopPeopleLineCollectionViewController.m in Sources */,
 				EF2127281FB9E06300625A9B /* LandingViewController.swift in Sources */,
 				F1199D3F1FC849450070FAC3 /* BackButtonDescription.swift in Sources */,
@@ -8204,6 +8202,7 @@
 				1682AEB920483CC5003A052A /* RenameGroupSectionController.swift in Sources */,
 				EF23740E230D37EE006F53F3 /* NetworkConditionHelper.swift in Sources */,
 				5E8FFC3121F098E00052DF03 /* ConfirmationCodeCell.swift in Sources */,
+				EFEC7D9A2361A91F0003CF33 /* ClientRemovalObserver.swift in Sources */,
 				EFF9A6622239503D00CCEC85 /* UIViewController+LoadingView.swift in Sources */,
 				873C5FE81C10426A00D5132A /* ClientTableViewCell.swift in Sources */,
 				87C39A8A206947A1008DA100 /* UIView+Constraints.swift in Sources */,
@@ -8549,6 +8548,7 @@
 				F15650BF21DD08F100210504 /* AVAsset+VideoConvert.swift in Sources */,
 				F15650AC21DCFBC000210504 /* SharedConstants.swift in Sources */,
 				F15650C421DD0AB200210504 /* UIApplication+ShareExtension.swift in Sources */,
+				EFEC7D982361A7F90003CF33 /* RequestPasswordController.swift in Sources */,
 				F15650C321DD0A9B00210504 /* Bundle+Backend.swift in Sources */,
 				F15650B221DD018700210504 /* Bundle+Identifiers.swift in Sources */,
 				F15650B021DCFF5300210504 /* AutomationHelper.swift in Sources */,

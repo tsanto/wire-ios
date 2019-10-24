@@ -27,6 +27,8 @@ extension Notification.Name {
 }
 
 final class AppLockViewController: UIViewController {
+    var requestPasswordController: RequestPasswordController?
+
     fileprivate var lockView: AppLockView!
     fileprivate var localAuthenticationCancelled: Bool = false
     fileprivate var localAuthenticationNeeded: Bool = true
@@ -131,10 +133,35 @@ final class AppLockViewController: UIViewController {
         
         AppLock.evaluateAuthentication(description: "self.settings.privacy_security.lock_app.description".localized) { result in
             DispatchQueue.main.async {
-                callback(result)
-                if case .granted = result {
-                    AppLock.lastUnlockedDate = Date()
-                    NotificationCenter.default.post(name: .appUnlocked, object: self, userInfo: nil)
+
+                if case .needPassword = result {
+                    let requestPasswordController = RequestPasswordController(context: .unlock, callback: { (password) in
+                        let passwordCorrect: Bool
+                        if let password = password, !password.isEmpty {
+                            ///TODO: ask SE to validate the passwd
+                            passwordCorrect = true
+                        } else {
+                            passwordCorrect = false
+                        }
+
+                        callback(passwordCorrect ? .granted : .denied)
+
+                        if passwordCorrect {
+                            AppLock.lastUnlockedDate = Date()
+                            NotificationCenter.default.post(name: .appUnlocked, object: self, userInfo: nil)
+                        }
+                    })
+
+                    self.present(requestPasswordController.alertController, animated: true)
+
+                    self.requestPasswordController = requestPasswordController
+                } else {
+                    callback(result)
+
+                    if case .granted = result {
+                        AppLock.lastUnlockedDate = Date()
+                        NotificationCenter.default.post(name: .appUnlocked, object: self, userInfo: nil)
+                    }
                 }
             }
         }

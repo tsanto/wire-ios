@@ -22,12 +22,12 @@ import LocalAuthentication
 
 private let zmLog = ZMSLog(tag: "UI")
 
-final public class AppLock {
+final class AppLock {
     // Returns true if user enabled the app lock feature.
     
-    public static var rules = AppLockRules.fromBundle()
+    static var rules = AppLockRules.fromBundle()
 
-    public static var isActive: Bool {
+    static var isActive: Bool {
         get {
             guard !rules.forceAppLock else { return true }
             guard let data = ZMKeychain.data(forAccount: SettingsPropertyName.lockApp.rawValue),
@@ -45,9 +45,9 @@ final public class AppLock {
     }
     
     // Returns the time since last lock happened.
-    public static var lastUnlockedDate: Date = Date(timeIntervalSince1970: 0)
+    static var lastUnlockedDate: Date = Date(timeIntervalSince1970: 0)
     
-    public enum AuthenticationResult {
+    enum AuthenticationResult {
         /// User sucessfully authenticated
         case granted
         /// User failed to authenticate or cancelled the request
@@ -57,7 +57,7 @@ final public class AppLock {
     }
     
     // Creates a new LAContext and evaluates the authentication settings of the user.
-    public static func evaluateAuthentication(description: String, with callback: @escaping (AuthenticationResult) -> Void) {
+    static func evaluateAuthentication(description: String, with callback: @escaping (AuthenticationResult) -> Void) {
     
         let context: LAContext = LAContext()
         var error: NSError?
@@ -71,6 +71,10 @@ final public class AppLock {
 //                default:
 //                    break
 //                }
+
+                if let laError = error as? LAError {
+                    print(laError.code)
+                }
             })
         } else {
             // If there's no passcode set automatically grant access unless app lock is a requirement to run the app
@@ -82,12 +86,12 @@ final public class AppLock {
 }
 
 
-public struct AppLockRules: Decodable {
+struct AppLockRules: Decodable {
     
-    public let forceAppLock: Bool
-    public let appLockTimeout: UInt
+    let forceAppLock: Bool
+    let appLockTimeout: UInt
     
-    public static func fromBundle() -> AppLockRules {
+    static func fromBundle() -> AppLockRules {
         if let fileURL = Bundle.main.url(forResource: "session_manager", withExtension: "json"),
             let fileData = try? Data(contentsOf: fileURL) {
             return fromData(fileData)
@@ -96,7 +100,7 @@ public struct AppLockRules: Decodable {
         }
     }
     
-    public static func fromData(_ data: Data) -> AppLockRules {
+    static func fromData(_ data: Data) -> AppLockRules {
         let decoder = JSONDecoder()
         return try! decoder.decode(AppLockRules.self, from: data)
     }

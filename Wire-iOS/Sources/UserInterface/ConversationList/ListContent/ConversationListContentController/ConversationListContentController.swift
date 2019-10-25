@@ -64,6 +64,15 @@ final class ConversationListContentController: UICollectionViewController {
         }
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        ///TODO: from SwizzleTransition.animateTransition, animated = false
+
+        if !animated {
+            listViewModel.reload()
+        }
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
@@ -98,7 +107,7 @@ final class ConversationListContentController: UICollectionViewController {
         view.layoutIfNeeded()
     }
 
-    func updateVisibleCells() {
+    private func updateVisibleCells() {
         for cell in collectionView.visibleCells {
             (cell as? ConversationListCell)?.updateAppearance()
         }

@@ -378,7 +378,7 @@ final class ConversationListViewModel: NSObject {
         return conversationDirectory.conversations(by: conversationListType).map({ SectionItem(item: $0, kind: kind) })
     }
 
-    private func reload() {
+    func reload() {
         updateAllSections()
         log.debug("RELOAD conversation list")
         delegate?.listViewModelShouldBeReloaded()

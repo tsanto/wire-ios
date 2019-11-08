@@ -58,6 +58,7 @@ final public class ConversationCreationValues {
         allowGuests: Bool,
         enableReceipts: Bool
     )
+    
 }
 
 final class ConversationCreationController: UIViewController {

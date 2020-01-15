@@ -33,16 +33,16 @@ extern const NSUInteger MinimumNumberOfContactsToDisplaySections;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol ContactsDataSourceDelegate <NSObject>
-
-@required
-- (UITableViewCell *)dataSource:(ContactsDataSource *)dataSource cellForUser:(ZMSearchUser *)user atIndexPath:(NSIndexPath *)indexPath;
-@optional
-- (void)dataSource:(ContactsDataSource *)dataSource didReceiveSearchResult:(NSArray *)newUsers;
-- (void)dataSource:(ContactsDataSource *)dataSource didSelectUser:(ZMSearchUser *)user;
-- (void)dataSource:(ContactsDataSource *)dataSource didDeselectUser:(ZMSearchUser *)user;
-
-@end
+//@protocol ContactsDataSourceDelegate <NSObject>
+//
+//@required
+//- (UITableViewCell *)dataSource:(ContactsDataSource *)dataSource cellForUser:(ZMSearchUser *)user atIndexPath:(NSIndexPath *)indexPath;
+//@optional
+//- (void)dataSource:(ContactsDataSource *)dataSource didReceiveSearchResult:(NSArray *)newUsers;
+//- (void)dataSource:(ContactsDataSource *)dataSource didSelectUser:(ZMSearchUser *)user;
+//- (void)dataSource:(ContactsDataSource *)dataSource didDeselectUser:(ZMSearchUser *)user;
+//
+//@end
 
 
 

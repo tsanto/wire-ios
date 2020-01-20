@@ -68,7 +68,7 @@
 
 - (void)superviewFrameChanged:(NSDictionary *)changes
 {
-    [self.delegate invisibleInputAccessoryView:self superviewFrameChanged:self.superview.frame];///called 2 times when keyboard appears
+    [self.delegate invisibleInputAccessoryView:self superviewFrameChanged:self.superview.frame];///called 2 times when keyboard appears, 2nd time is the target
 }
 
 

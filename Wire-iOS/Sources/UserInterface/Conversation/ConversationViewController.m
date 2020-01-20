@@ -368,12 +368,12 @@ static NSString* ZMLogTag ZM_UNUSED = @"UI";
     if ( ! CGRectEqualToRect(frame, CGRectZero)) {///TODO: frame: (origin = (x = 0, y = 568), size = (width = 320, height = 365)),
         //*(origin = (x = 0, y = 203), size = (width = 320, height = 365))
 
-        CGRect convertedFrame = [self.view convertRect:view.superview.frame fromView:view.superview.superview];
+        CGRect convertedFrame = [self.view convertRect:view.superview.frame fromView:view.superview.superview];//(origin = (x = 0, y = 504), size = (width = 320, height = 365)), (origin = (x = 0, y = 139), size = (width = 320, height = 365))
 
         // We have to use intrinsicContentSize here because the frame may not have actually been updated yet
         CGFloat newViewHeight = view.intrinsicContentSize.height;
 
-        distanceFromBottom = self.view.frame.size.height - convertedFrame.origin.y - newViewHeight;
+        distanceFromBottom = self.view.frame.size.height - convertedFrame.origin.y - newViewHeight;//-112, distanceFromBottom
         distanceFromBottom = MAX(0, distanceFromBottom);
     }
 

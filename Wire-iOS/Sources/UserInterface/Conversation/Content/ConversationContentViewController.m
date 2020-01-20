@@ -51,18 +51,6 @@
 @interface ConversationContentViewController (ZMTypingChangeObserver) <ZMTypingChangeObserver>
 @end
 
-@interface ConversationContentViewController () 
-
-@property (nonatomic, assign) BOOL wasScrolledToBottomAtStartOfUpdate;
-@property (nonatomic) NSObject *activeMediaPlayerObserver;
-@property (nonatomic) MediaPlaybackManager *mediaPlaybackManager;
-@property (nonatomic) NSMutableDictionary *cachedRowHeights;
-@property (nonatomic) BOOL hasDoneInitialLayout;
-@property (nonatomic) BOOL onScreen;
-@property (nonatomic) id<ZMConversationMessage> messageVisibleOnLoad;
-@end
-
-
 
 @implementation ConversationContentViewController
 
@@ -174,29 +162,6 @@
 {
     [self.dataSource resetSectionControllers];
     [self.tableView reloadData];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    self.onScreen = YES;
-    self.activeMediaPlayerObserver = [KeyValueObserver observeObject:self.mediaPlaybackManager
-                                                             keyPath:@"activeMediaPlayer"
-                                                              target:self
-                                                            selector:@selector(activeMediaPlayerChanged:)
-
-                                                             options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew];
-
-    for (UITableViewCell *cell in self.tableView.visibleCells) {        
-        if ([cell respondsToSelector:@selector(willDisplayCell)]) {
-            [cell willDisplayCell];
-        }
-    }
-    
-    self.messagePresenter.modalTargetController = self.parentViewController;
-
-    [self updateHeaderHeight];
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated

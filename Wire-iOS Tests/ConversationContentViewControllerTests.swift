@@ -56,6 +56,12 @@ final class ConversationContentViewControllerTests: CoreDataSnapshotTestCase {
         super.tearDown()
     }
 
+    func testForInit() {
+        recordMode = true
+        
+        verify(view: sut.view)
+    }
+    
     func testThatDeletionDialogIsCreated(){
         // Notice: view arguemnt is used for iPad idiom. We should think about test it with iPad simulator that the alert shows in a popover which points to the view.
         let view = UIView()

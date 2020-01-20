@@ -365,7 +365,7 @@ static NSString* ZMLogTag ZM_UNUSED = @"UI";
     CGFloat distanceFromBottom = 0;
 
     // On iOS 8, the frame goes to zero when the accessory view is hidden
-    if ( ! CGRectEqualToRect(frame, CGRectZero)) {
+    if ( ! CGRectEqualToRect(frame, CGRectZero)) {///TODO: frame: (origin = (x = 0, y = 203), size = (width = 320, height = 365))
 
         CGRect convertedFrame = [self.view convertRect:view.superview.frame fromView:view.superview.superview];
 

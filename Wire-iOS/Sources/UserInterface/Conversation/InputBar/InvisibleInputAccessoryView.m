@@ -44,7 +44,7 @@
 
 - (CGSize)intrinsicContentSize
 {
-    return _intrinsicContentSize;
+    return _intrinsicContentSize; //-1, 112
 }
 
 - (void)didMoveToWindow

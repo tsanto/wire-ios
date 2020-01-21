@@ -359,7 +359,7 @@ static NSString* ZMLogTag ZM_UNUSED = @"UI";
 }
 
 // WARNING: DO NOT TOUCH THIS UNLESS YOU KNOW WHAT YOU ARE DOING
-- (void)invisibleInputAccessoryView:(InvisibleInputAccessoryView *)view superviewFrameChanged:(CGRect)frame
+- (void)invisibleInputAccessoryView:(InvisibleInputAccessoryView *)view superviewFrameChanged:(CGRect)frame ///frame = (origin = (x = 0, y = 568), size = (width = 320, height = 365)), (origin = (x = 0, y = 203), size = (width = 320, height = 365))
 {
     // Adjust the input bar distance from bottom based on the invisibleAccessoryView
     CGFloat distanceFromBottom = 0;
@@ -367,7 +367,8 @@ static NSString* ZMLogTag ZM_UNUSED = @"UI";
     // On iOS 8, the frame goes to zero when the accessory view is hidden
     if ( ! CGRectEqualToRect(frame, CGRectZero)) {///TODO: frame: (origin = (x = 0, y = 568), size = (width = 320, height = 365)),
         //*(origin = (x = 0, y = 203), size = (width = 320, height = 365))
-
+        ///view.superview = (0 568; 320 365), (0 203; 320 365)
+        ///view.superview.superview = (0 0; 320 568), (0 0; 320 568)
         CGRect convertedFrame = [self.view convertRect:view.superview.frame fromView:view.superview.superview];//(origin = (x = 0, y = 504), size = (width = 320, height = 365)), (origin = (x = 0, y = 139), size = (width = 320, height = 365))
 
         // We have to use intrinsicContentSize here because the frame may not have actually been updated yet

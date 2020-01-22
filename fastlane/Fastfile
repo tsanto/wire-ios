@@ -54,12 +54,18 @@ platform :ios do
     end
 
     desc "Test without building"
-    lane :test do
+    lane :test do |options|
+
+        device = options[:device]
+        if device.nil? 
+            device = "iPhone 8"
+        end
+
         run_tests(
             scheme: "Wire-iOS",
             configuration: "Debug",
             test_without_building: true,
-            devices: ["iPhone 7"],
+            devices: ["device"],
             code_coverage: true,
             derived_data_path: "DerivedData",
             buildlog_path: "test",

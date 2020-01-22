@@ -18,7 +18,7 @@
 
 import Foundation
 
-public enum AccentColor: Int16, CaseIterable {
+public enum AccentColor: Int16, CaseIterable { ///TODO: move this to utilities, since ZMAccentColor is also defined in utilites
     case strongBlue = 1
     case strongLimeGreen
     case brightYellow

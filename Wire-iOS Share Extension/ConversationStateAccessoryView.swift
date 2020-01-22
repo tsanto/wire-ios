@@ -47,6 +47,7 @@ class ConversationStateAccessoryView: UIView {
         contentStack.spacing = 8
 
         legalHoldImageView.setContentHuggingPriority(.required, for: .horizontal)
+        ///TODO: get the value from utilities after AccentColor is moved
         let vividRed = UIColor(red: 1, green: 0.152, blue: 0, alpha: 1)
         legalHoldImageView.setIcon(.legalholdactive, size: 16, color: vividRed)
         contentStack.addArrangedSubview(legalHoldImageView)

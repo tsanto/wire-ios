@@ -47,7 +47,8 @@ class ConversationStateAccessoryView: UIView {
         contentStack.spacing = 8
 
         legalHoldImageView.setContentHuggingPriority(.required, for: .horizontal)
-        legalHoldImageView.setIcon(.legalholdactive, size: 16, color: .vividRed)
+        let vividRed = UIColor(red: 1, green: 0.152, blue: 0, alpha: 1)
+        legalHoldImageView.setIcon(.legalholdactive, size: 16, color: vividRed)
         contentStack.addArrangedSubview(legalHoldImageView)
 
         verifiedImageView.setContentHuggingPriority(.required, for: .horizontal)

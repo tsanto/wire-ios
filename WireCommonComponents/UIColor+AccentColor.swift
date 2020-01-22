@@ -17,7 +17,6 @@
 //
 
 import Foundation
-import WireDataModel
 
 public enum AccentColor: Int16, CaseIterable {
     case strongBlue = 1

@@ -28,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class IconButton;
 
 @protocol TokenFieldDelegate;
+@protocol TokenizedTextViewDelegate;
 
 @interface TokenField : UIView
 
@@ -88,6 +89,29 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)becomeFirstResponder;
 - (BOOL)resignFirstResponder;
 
+
+@end
+
+///TODO: private
+@interface TokenField () <TokenizedTextViewDelegate>
+
+@property (readwrite, nonatomic) TextView *textView;
+
+@property (readwrite, nonatomic) IconButton *accessoryButton;
+@property (nonatomic) NSLayoutConstraint *accessoryButtonTopMargin;
+@property (nonatomic) NSLayoutConstraint *accessoryButtonRightMargin;
+
+@property (nonatomic) UILabel *toLabel;
+@property (nonatomic) NSLayoutConstraint *toLabelLeftMargin;
+@property (nonatomic) NSLayoutConstraint *toLabelTopMargin;
+
+@property (nonatomic) NSMutableArray *currentTokens;
+@property (copy, readwrite, nonatomic) NSString *filterText;
+@property (readonly, nonatomic) NSDictionary *textAttributes;
+
+@property (nonatomic, readwrite) BOOL userDidConfirmInput;
+
+- (void)removeTokens:(NSArray *)tokensToRemove;
 
 @end
 

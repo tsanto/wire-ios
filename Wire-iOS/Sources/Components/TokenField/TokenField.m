@@ -28,27 +28,6 @@ static NSString* ZMLogTag ZM_UNUSED = @"UI";
 CGFloat const accessoryButtonSize = 32.0f;
 
 
-@interface TokenField () <TokenizedTextViewDelegate>
-
-@property (readwrite, nonatomic) TextView *textView;
-
-@property (readwrite, nonatomic) IconButton *accessoryButton;
-@property (nonatomic) NSLayoutConstraint *accessoryButtonTopMargin;
-@property (nonatomic) NSLayoutConstraint *accessoryButtonRightMargin;
-
-@property (nonatomic) UILabel *toLabel;
-@property (nonatomic) NSLayoutConstraint *toLabelLeftMargin;
-@property (nonatomic) NSLayoutConstraint *toLabelTopMargin;
-
-@property (nonatomic) NSMutableArray *currentTokens;
-@property (copy, readwrite, nonatomic) NSString *filterText;
-@property (readonly, nonatomic) NSDictionary *textAttributes;
-
-@property (nonatomic, readwrite) BOOL userDidConfirmInput;
-@end
-
-
-
 @implementation TokenField
 
 #pragma mark - Init
@@ -343,41 +322,6 @@ CGFloat const accessoryButtonSize = 32.0f;
 {
     Token *token = [[Token alloc] initWithTitle:title representedObject:object];
     [self addToken:token];
-}
-
-- (void)addToken:(Token *)token
-{
-    if (! [self.currentTokens containsObject:token]) {
-        [self.currentTokens addObject:token];
-    } else {
-        return;
-    }
-    
-    [self updateMaxTitleWidthForToken:token];
-    
-    if (! self.isCollapsed) {
-        self.textView.attributedText = [self stringForTokens:self.currentTokens];
-        // Calling -insertText: forces textView to update its contentSize, while other public methods do not.
-        // Broken contentSize leads to broken scrolling to bottom of input field.
-        [self.textView insertText:@""];
-        
-        if ([self.delegate respondsToSelector:@selector(tokenField:changedFilterTextTo:)]) {
-            [self.delegate tokenField:self changedFilterTextTo:@""];
-        }
-
-        [self invalidateIntrinsicContentSize];
-        
-        // Move the cursor to the end of the input field
-        self.textView.selectedRange = NSMakeRange(self.textView.text.length, 0);
-        
-        // autoscroll to the end of the input field
-        [self setNeedsLayout];
-        [self updateLayout];
-        [self scrollToBottomOfInputField];
-    } else {
-        self.textView.attributedText = [self collapsedString];
-        [self invalidateIntrinsicContentSize];
-    }    
 }
 
 - (void)removeToken:(Token *)token
@@ -754,58 +698,61 @@ CGFloat const accessoryButtonSize = 32.0f;
     return ![textAttachment isKindOfClass:[TokenSeparatorAttachment class]];
 }
 
-- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
-{
-    if ([text isEqualToString:@"\n"]) {
-        [textView resignFirstResponder];
-        self.userDidConfirmInput = YES;
-        if ([self.delegate respondsToSelector:@selector(tokenFieldDidConfirmSelection:)]) {
-            [self.delegate tokenFieldDidConfirmSelection:self];
-        }
-        
-        return NO;
-    }
-    
-    if (range.length == 1 && text.length == 0) {  // backspace
-        __block BOOL cancelBackspace = NO;
-        [textView.attributedText enumerateAttribute:NSAttachmentAttributeName
-                                            inRange:range
-                                            options:0
-                                         usingBlock:^(TokenTextAttachment *tokenAttachment, NSRange range, BOOL *stop) {
-                                             if ([tokenAttachment isKindOfClass:[TokenTextAttachment class]]) {
-                                                 if (! tokenAttachment.isSelected) {
-                                                     textView.selectedRange = range;
-                                                     cancelBackspace = YES;
-                                                 }
-                                                 *stop = YES;
-                                             }
-                                         }];
-        if (cancelBackspace) {
-            return NO;
-        }
-    }
-    
-    
-    // Inserting text between tokens does not make sense for this control.
-    // If there are any tokens after the insertion point, move the cursor to the end instead, but only for insertions
-    // If the range length is >0, we are trying to replace something instead, and that’s a bit more complex,
-    // so don’t do any magic in that case
-    if (text.length != 0) {
-        [textView.text enumerateSubstringsInRange:NSMakeRange(range.location, textView.text.length - range.location)
-                                          options:NSStringEnumerationByComposedCharacterSequences
-                                       usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
-                                           
-                                           if (substring.length && ([substring characterAtIndex:0] == NSAttachmentCharacter)) {
-                                               textView.selectedRange = NSMakeRange(textView.text.length, 0);
-                                               *stop = YES;
-                                           }
-                                       }];
-    }
-    
-    [self updateTextAttributes];
-    
-    return YES;
-}
+
+///TODO: move whole delegate?
+
+//- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+//{
+//    if ([text isEqualToString:@"\n"]) {
+//        [textView resignFirstResponder];
+//        self.userDidConfirmInput = YES;
+//        if ([self.delegate respondsToSelector:@selector(tokenFieldDidConfirmSelection:)]) {
+//            [self.delegate tokenFieldDidConfirmSelection:self];
+//        }
+//        
+//        return NO;
+//    }
+//    
+//    if (range.length == 1 && text.length == 0) {  // backspace
+//        __block BOOL cancelBackspace = NO;
+//        [textView.attributedText enumerateAttribute:NSAttachmentAttributeName
+//                                            inRange:range
+//                                            options:0
+//                                         usingBlock:^(TokenTextAttachment *tokenAttachment, NSRange range, BOOL *stop) {
+//                                             if ([tokenAttachment isKindOfClass:[TokenTextAttachment class]]) {
+//                                                 if (! tokenAttachment.isSelected) {
+//                                                     textView.selectedRange = range;
+//                                                     cancelBackspace = YES;
+//                                                 }
+//                                                 *stop = YES;
+//                                             }
+//                                         }];
+//        if (cancelBackspace) {
+//            return NO;
+//        }
+//    }
+//    
+//    
+//    // Inserting text between tokens does not make sense for this control.
+//    // If there are any tokens after the insertion point, move the cursor to the end instead, but only for insertions
+//    // If the range length is >0, we are trying to replace something instead, and that’s a bit more complex,
+//    // so don’t do any magic in that case
+//    if (text.length != 0) {
+//        [textView.text enumerateSubstringsInRange:NSMakeRange(range.location, textView.text.length - range.location)
+//                                          options:NSStringEnumerationByComposedCharacterSequences
+//                                       usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
+//                                           
+//                                           if (substring.length && ([substring characterAtIndex:0] == NSAttachmentCharacter)) {
+//                                               textView.selectedRange = NSMakeRange(textView.text.length, 0);
+//                                               *stop = YES;
+//                                           }
+//                                       }];
+//    }
+//    
+//    [self updateTextAttributes];
+//    
+//    return YES;
+//}
 
 - (void)textViewDidChange:(UITextView *)textView
 {
@@ -814,40 +761,6 @@ CGFloat const accessoryButtonSize = 32.0f;
     [self filterUnwantedAttachments];
     [self notifyIfFilterTextChanged];
     [self invalidateIntrinsicContentSize];
-}
-
-- (void)filterUnwantedAttachments
-{
-    NSMutableOrderedSet *updatedCurrentTokens = [NSMutableOrderedSet orderedSet];
-    NSMutableSet *updatedCurrentSeparatorTokens = [NSMutableSet set];
-    
-    [self.textView.attributedText enumerateAttribute:NSAttachmentAttributeName
-                                             inRange:NSMakeRange(0, self.textView.text.length)
-                                             options:0
-                                          usingBlock:^(NSTextAttachment *textAttachment, NSRange range, BOOL *stop) {
-                                              
-                                              if ([textAttachment isKindOfClass:[TokenTextAttachment class]] && ![updatedCurrentTokens containsObject:((TokenTextAttachment *)textAttachment).token]) {
-                                                  [updatedCurrentTokens addObject:((TokenTextAttachment *)textAttachment).token];
-                                              }
-                                              
-                                              if ([textAttachment isKindOfClass:[TokenSeparatorAttachment class]] && ![updatedCurrentSeparatorTokens containsObject:((TokenSeparatorAttachment *) textAttachment).token]) {
-                                                  [updatedCurrentSeparatorTokens addObject:((TokenSeparatorAttachment *) textAttachment).token];
-                                              }
-                                          }];
-    
-    [updatedCurrentTokens intersectSet:updatedCurrentSeparatorTokens];
-    
-    NSMutableSet *deletedTokens = [NSMutableSet setWithArray:self.currentTokens];
-    [deletedTokens minusSet:updatedCurrentTokens.set];
-    
-    if (deletedTokens.count > 0) {
-        [self removeTokens:deletedTokens.allObjects];
-    }
-    
-    [self.currentTokens removeObjectsInArray:deletedTokens.allObjects];
-    if ([self.delegate respondsToSelector:@selector(tokenField:changedTokensTo:)]) {
-        [self.delegate tokenField:self changedTokensTo:self.currentTokens];
-    }
 }
 
 - (void)notifyIfFilterTextChanged

@@ -36,10 +36,11 @@ extension TokenField {
             }
         })
         
-        updatedCurrentTokens.intersection(updatedCurrentSeparatorTokens)
+        ///TODO: check
+        updatedCurrentTokens = updatedCurrentTokens.intersection(updatedCurrentSeparatorTokens)
         
         var deletedTokens = Set<AnyHashable>(currentTokens as! [AnyHashable])
-        deletedTokens.subtract(updatedCurrentTokens.set)
+        deletedTokens.subtract(updatedCurrentTokens)
         
         if !deletedTokens.isEmpty {
             removeTokens(Array(deletedTokens))
@@ -47,13 +48,13 @@ extension TokenField {
         
         currentTokens = currentTokens.filter({ !Array(deletedTokens).contains($0) })
 
-        delegate.tokenField(self, changedTokensTo: currentTokens as? [Token])
+        delegate?.tokenField(self, changedTokensTo: currentTokens as? [Token])
     }
     
     func add(_ token: Token?) {
         if let token = token {
             if !currentTokens.contains(token) {
-                currentTokens.append(token)
+                currentTokens.insert(token)
             } else {
                 return
             }
@@ -67,9 +68,7 @@ extension TokenField {
             // Broken contentSize leads to broken scrolling to bottom of input field.
             textView.insertText("")
             
-            if delegate.responds(to: #selector(tokenField(_:changedFilterTextTo:))) {
-                delegate.tokenField(self, changedFilterTextTo: "")
-            }
+                delegate?.tokenField(self, changedFilterTextTo: "")
             
             invalidateIntrinsicContentSize()
             

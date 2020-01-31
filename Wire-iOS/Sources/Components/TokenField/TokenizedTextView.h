@@ -25,6 +25,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+///TODO: to Swift first
 @protocol TokenizedTextViewDelegate <UITextViewDelegate>
 
 - (void)tokenizedTextView:(TokenizedTextView *)textView didTapTextRange:(NSRange)range fraction:(float)fraction;

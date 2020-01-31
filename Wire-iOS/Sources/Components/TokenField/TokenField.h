@@ -112,6 +112,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readwrite) BOOL userDidConfirmInput;
 
 - (void)removeTokens:(NSArray *)tokensToRemove;
+- (void)updateMaxTitleWidthForToken:(Token *)token;
+- (void)updateLayout;
+- (NSAttributedString *)collapsedString;
 
 @end
 

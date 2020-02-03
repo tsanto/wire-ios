@@ -297,12 +297,16 @@ class LandingViewController: AuthenticationStepViewController {
         
         let widthConstraint = contentView.widthAnchor.constraint(equalToConstant: 375)
         widthConstraint.priority = .defaultHigh
+        let heightConstraint = contentView.heightAnchor.constraint(equalToConstant: 760)
+        heightConstraint.priority = .defaultHigh
         NSLayoutConstraint.activate([
             // content view
             widthConstraint,
+            heightConstraint,
             contentView.widthAnchor.constraint(lessThanOrEqualToConstant: 375),
-            contentView.topAnchor.constraint(equalTo: view.safeTopAnchor),
-            contentView.bottomAnchor.constraint(equalTo: view.safeBottomAnchor),
+            contentView.topAnchor.constraint(greaterThanOrEqualTo: view.safeTopAnchor),
+            contentView.bottomAnchor.constraint(lessThanOrEqualTo: view.safeBottomAnchor),
+            contentView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             contentView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             contentView.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: 32),
             contentView.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -32),

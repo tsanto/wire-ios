@@ -36,13 +36,11 @@ final class ActiveCallViewController : UIViewController {
         
         super.init(nibName: nil, bundle: nil)
         
-        addChild(visibleVoiceChannelViewController)
-        
         visibleVoiceChannelViewController.view.frame = view.bounds
         visibleVoiceChannelViewController.view.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-        view.addSubview(visibleVoiceChannelViewController.view)
-        visibleVoiceChannelViewController.didMove(toParent: self)
-        
+
+        addToSelf(visibleVoiceChannelViewController)
+
         zmLog.debug(String(format: "Presenting CallViewController: %p", visibleVoiceChannelViewController))
     }
     
@@ -77,12 +75,12 @@ final class ActiveCallViewController : UIViewController {
         updateVisibleVoiceChannelViewController()
     }
 
-    override var prefersStatusBarHidden: Bool {
-        return visibleVoiceChannelViewController.prefersStatusBarHidden
+    override var childForStatusBarStyle: UIViewController? {
+        return visibleVoiceChannelViewController
     }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return visibleVoiceChannelViewController.preferredStatusBarStyle
+    override var childForStatusBarHidden: UIViewController? {
+        return visibleVoiceChannelViewController
     }
 
     override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {

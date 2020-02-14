@@ -154,6 +154,14 @@ final class CallViewController: UIViewController {
         return true
     }
 
+    override var childForStatusBarStyle: UIViewController? {
+        return callInfoRootViewController
+    }
+
+    override var childForStatusBarHidden: UIViewController? {
+        return callInfoRootViewController
+    }
+
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return callInfoConfiguration.effectiveColorVariant == .light ? .default : .lightContent
     }

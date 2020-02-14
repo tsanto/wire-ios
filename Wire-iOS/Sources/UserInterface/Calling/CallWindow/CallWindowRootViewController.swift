@@ -40,8 +40,6 @@ final class CallWindowRootViewController: UIViewController {
         return callController?.activeCallViewController ?? topmostViewController()
     }
 
-
-
     override var childForStatusBarStyle: UIViewController? {
         return child
     }

@@ -99,6 +99,13 @@ final class CallInfoViewController: UIViewController, CallActionsViewDelegate, C
         updateState()
     }
 
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    override var prefersStatusBarHidden: Bool {
+        return false
+    }
+
     private func setupViews() {
         addToSelf(backgroundViewController)
 

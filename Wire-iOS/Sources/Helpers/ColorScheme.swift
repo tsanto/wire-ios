@@ -67,7 +67,7 @@ extension UIColor {
 }
 
 
-@objc public enum ColorSchemeColor: Int {
+enum ColorSchemeColor: Int {
     case textForeground
     case textBackground
     case textDimmed
@@ -256,10 +256,8 @@ final class ColorScheme: NSObject {
         self.variant = variant
     }
     
-    @objc(defaultColorScheme)
     static let `default`: ColorScheme = ColorScheme()
 
-    @objc(colorWithName:)
     func color(named: ColorSchemeColor) -> UIColor {
         return color(named: named, variant: variant)
     }

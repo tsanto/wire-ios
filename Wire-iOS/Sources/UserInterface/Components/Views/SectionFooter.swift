@@ -22,7 +22,7 @@ final class SectionFooterView: UIView, Themeable {
 
     let titleLabel = UILabel()
 
-    @objc dynamic var colorSchemeVariant: ColorSchemeVariant = ColorScheme.default.variant {
+    dynamic var colorSchemeVariant: ColorSchemeVariant = ColorScheme.default.variant {
         didSet {
             guard oldValue != colorSchemeVariant else { return }
             applyColorScheme(colorSchemeVariant)
@@ -84,7 +84,7 @@ final class SectionFooter: UICollectionReusableView, Themeable {
         footerView.fitInSuperview()
     }
 
-    @objc dynamic var colorSchemeVariant: ColorSchemeVariant = ColorScheme.default.variant {
+    dynamic var colorSchemeVariant: ColorSchemeVariant = ColorScheme.default.variant {
         didSet {
             guard oldValue != colorSchemeVariant else { return }
             applyColorScheme(colorSchemeVariant)
@@ -122,7 +122,7 @@ class SectionTableFooter: UITableViewHeaderFooterView, Themeable {
         footerView.fitInSuperview()
     }
 
-    @objc dynamic var colorSchemeVariant: ColorSchemeVariant = ColorScheme.default.variant {
+    dynamic var colorSchemeVariant: ColorSchemeVariant = ColorScheme.default.variant {
         didSet {
             guard oldValue != colorSchemeVariant else { return }
             applyColorScheme(colorSchemeVariant)

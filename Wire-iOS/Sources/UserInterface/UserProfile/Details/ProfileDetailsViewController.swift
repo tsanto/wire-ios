@@ -56,7 +56,7 @@ final class ProfileDetailsViewController: UIViewController, Themeable {
     private let profileHeaderViewController: ProfileHeaderViewController
     private let tableView = UITableView(frame: .zero, style: .grouped)
 
-    @objc dynamic var colorSchemeVariant: ColorSchemeVariant = ColorScheme.default.variant {
+    dynamic var colorSchemeVariant: ColorSchemeVariant = ColorScheme.default.variant {
         didSet {
             guard colorSchemeVariant != oldValue else { return }
             applyColorScheme(colorSchemeVariant)

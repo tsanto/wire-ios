@@ -76,7 +76,7 @@ final class AccessoryTextField: UITextField, TextContainer, Themeable {
         }
     }
 
-    @objc dynamic var colorSchemeVariant: ColorSchemeVariant = .light {
+    dynamic var colorSchemeVariant: ColorSchemeVariant = .light {
         didSet {
             applyColorScheme(colorSchemeVariant)
         }

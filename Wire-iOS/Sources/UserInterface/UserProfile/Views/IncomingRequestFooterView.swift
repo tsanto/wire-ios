@@ -41,7 +41,7 @@ class IncomingRequestFooterView: UIView, Themeable {
     weak var delegate: IncomingRequestFooterViewDelegate?
 
     /// The color scheme variant.
-    @objc dynamic var colorSchemeVariant: ColorSchemeVariant = ColorScheme.default.variant {
+    dynamic var colorSchemeVariant: ColorSchemeVariant = ColorScheme.default.variant {
         didSet {
             if colorSchemeVariant != oldValue {
                 applyColorScheme(colorSchemeVariant)

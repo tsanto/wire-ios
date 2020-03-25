@@ -102,7 +102,6 @@ extension NSAttributedString {
         return style
     }
     
-    @objc
     static func formatForPreview(message: ZMTextMessageData, inputMode: Bool, variant: ColorSchemeVariant = ColorScheme.default.variant) -> NSAttributedString {
         var plainText = message.messageText ?? ""
 

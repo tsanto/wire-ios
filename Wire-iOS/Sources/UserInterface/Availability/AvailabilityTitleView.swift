@@ -53,7 +53,7 @@ final class AvailabilityTitleView: TitleView, Themeable, ZMUserObserver {
     
     private let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
     
-    @objc dynamic var colorSchemeVariant: ColorSchemeVariant = ColorScheme.default.variant {
+    dynamic var colorSchemeVariant: ColorSchemeVariant = ColorScheme.default.variant {
         didSet {
             guard colorSchemeVariant != oldValue else { return }
             applyColorScheme(colorSchemeVariant)

@@ -73,7 +73,7 @@ class SeparatorCollectionViewCell: UICollectionViewCell, SeparatorViewProtocol, 
         }
     }
 
-    @objc dynamic var colorSchemeVariant: ColorSchemeVariant = ColorScheme.default.variant {
+    dynamic var colorSchemeVariant: ColorSchemeVariant = ColorScheme.default.variant {
         didSet {
             guard oldValue != colorSchemeVariant else { return }
             applyColorScheme(colorSchemeVariant)

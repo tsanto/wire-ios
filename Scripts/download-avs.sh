@@ -85,7 +85,7 @@ else
 
   # prepare credentials
 
-    GITHUB_USERNAME="`git config user.email`"
+    GITHUB_USERNAME="`git config user.email`" || echo "❌ invalid git user email, please check"
 
 	echo "ℹ️  Checking credentials"
 

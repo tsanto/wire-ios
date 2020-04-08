@@ -85,7 +85,11 @@ else
 
   # prepare credentials
   if hash git 2>/dev/null; then
+
     GITHUB_USERNAME="`git config user.email`"
+
+	echo "ℹ️  Github user name is ${GITHUB_USERNAME}"
+	echo "ℹ️  Github token name is ${GITHUB_ACCESS_TOKEN}"
 
     # guard username exists
     if [[ -z "${GITHUB_USERNAME}" ]]; then

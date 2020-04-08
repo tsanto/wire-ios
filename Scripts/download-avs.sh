@@ -86,7 +86,6 @@ else
 	echo "ℹ️  Github token name is ${GITHUB_ACCESS_TOKEN}"
 
   # prepare credentials
-  if hash git 2>/dev/null; then
 
     GITHUB_USERNAME="`git config user.email`"
 
@@ -105,11 +104,6 @@ else
     fi
 
     CREDENTIALS="${GITHUB_USERNAME}:${GITHUB_ACCESS_TOKEN}"
-
-  else
-    echo "❌  Can't find git. Please make sure it is installed ⚠️"
-    exit 1
-  fi
 	
 	# Get tag json: need to parse json to get assed URL
 	TEMP_FILE=`mktemp`

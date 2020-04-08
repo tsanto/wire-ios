@@ -81,7 +81,7 @@ if [ -e "${AVS_FILENAME}" ]; then
 	echo "ℹ️  Existing archive ${AVS_FILENAME} found, skipping download"
 else
 	# DOWNLOAD
-	echo "ℹ️  Downloading ${AVS_RELEASE_TAG_PATH}..."
+    echo "ℹ️  Downloading avs from ${AVS_RELEASE_TAG_PATH}..."
 
   # prepare credentials
   if hash git 2>/dev/null; then

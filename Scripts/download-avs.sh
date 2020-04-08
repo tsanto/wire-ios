@@ -81,7 +81,9 @@ if [ -e "${AVS_FILENAME}" ]; then
 	echo "ℹ️  Existing archive ${AVS_FILENAME} found, skipping download"
 else
 	# DOWNLOAD
-    echo "ℹ️  Downloading avs from ${AVS_RELEASE_TAG_PATH}..."
+    echo "ℹ️  Downloading AVS from ${AVS_RELEASE_TAG_PATH} ..."
+
+	echo "ℹ️  Github token name is ${GITHUB_ACCESS_TOKEN}"
 
   # prepare credentials
   if hash git 2>/dev/null; then
@@ -89,7 +91,6 @@ else
     GITHUB_USERNAME="`git config user.email`"
 
 	echo "ℹ️  Github user name is ${GITHUB_USERNAME}"
-	echo "ℹ️  Github token name is ${GITHUB_ACCESS_TOKEN}"
 
     # guard username exists
     if [[ -z "${GITHUB_USERNAME}" ]]; then

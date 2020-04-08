@@ -83,13 +83,9 @@ else
 	# DOWNLOAD
     echo "ℹ️  Downloading AVS from ${AVS_RELEASE_TAG_PATH} ..."
 
-	echo "ℹ️  Github token name is ${GITHUB_ACCESS_TOKEN}"
-
   # prepare credentials
 
     GITHUB_USERNAME="`git config user.email`"
-
-	echo "ℹ️  Github user name is ${GITHUB_USERNAME}"
 
     # guard username exists
     if [[ -z "${GITHUB_USERNAME}" ]]; then

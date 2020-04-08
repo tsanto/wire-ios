@@ -87,6 +87,8 @@ else
 
     GITHUB_USERNAME="`git config user.email`"
 
+	echo "ℹ️  Checking credentials"
+
     # guard username exists
     if [[ -z "${GITHUB_USERNAME}" ]]; then
       echo "❌  Git email not found. Configure it with: git config user.name ⚠️"
@@ -101,6 +103,8 @@ else
 
     CREDENTIALS="${GITHUB_USERNAME}:${GITHUB_ACCESS_TOKEN}"
 	
+    echo "ℹ️  fetching..."
+
 	# Get tag json: need to parse json to get assed URL
 	TEMP_FILE=`mktemp`
 	curl -sLJ -u "${CREDENTIALS}" "${AVS_RELEASE_TAG_PATH}" -o "${TEMP_FILE}"
